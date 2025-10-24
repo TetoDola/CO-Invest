@@ -1,18 +1,25 @@
 # CO-INVEST: DeFi Vault Platform (ONLY ON BASE APP OR FARCASTER APP)
 
 TX PROOF ON MAINNET: 0x18aaa4e77c70fae53b29e55b8726559539dc6d7cf5b2c787a62969aff4ef8060
-
 WHY TX IS LIKE THAT: This transaction demonstrates our platform's key features:
 1. Account Abstraction (AA) via EntryPoint 0.6.0 (0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789)
 2. Gasless execution through sponsored transactions
-3. Token flow:
-   - Input: 0.431584 USDC ($0.43)
-   - Swap: USDC → 0.00011 WETH
-   - Protocol fees distributed in ZORA tokens
-4. Security constraints maintained:
+3. Token flow breakdown:
+   - Input: 0.431584 USDC ($0.43) from user
+   - Swap: USDC → 0.00011 WETH via Uniswap V4 Universal Router
+   - ZORA token distribution (protocol incentives):
+     * 0.075261 ZORA to protocol treasury
+     * 0.037630 ZORA split between protocol validators
+     * 2,562.421 Cabbage tokens minted as additional rewards
+4. Why these tokens:
+   - WETH: Base asset for vault operations
+   - ZORA: Protocol incentive token on Base network
+   - Cabbage: Additional reward token for protocol participants
+5. Security constraints maintained:
    - Slippage < 0.5%
    - Transaction bundling for gas efficiency
-   - Proper fee distribution to protocol participants
+   - Multi-token reward distribution for protocol sustainability
+   - 
 ## Technical Implementation Overview
 
 ### 🔄 Demo Version Architecture
