@@ -1,6 +1,7 @@
 # CO-INVEST: DeFi Vault Platform (ONLY ON BASE APP OR FARCASTER APP)
 
 TX PROOF ON MAINNET: 0x18aaa4e77c70fae53b29e55b8726559539dc6d7cf5b2c787a62969aff4ef8060
+
 WHY TX IS LIKE THAT: This transaction demonstrates our platform's key features:
 1. Account Abstraction (AA) via EntryPoint 0.6.0 (0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789)
 2. Gasless execution through sponsored transactions
