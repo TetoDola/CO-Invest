@@ -23,8 +23,6 @@ WHY TX IS LIKE THAT: This transaction demonstrates our platform's key features:
    - Transaction bundling for gas efficiency
    - Fair reward distribution using sender's address for tracking
 
-
-   - 
 ## Technical Implementation Overview
 
 ### 🔄 Demo Version Architecture
