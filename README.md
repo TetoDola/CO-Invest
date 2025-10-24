@@ -5,22 +5,24 @@ WHY TX IS LIKE THAT: This transaction demonstrates our platform's key features:
 1. Account Abstraction (AA) via EntryPoint 0.6.0 (0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789)
 2. Gasless execution through sponsored transactions
 3. Token flow breakdown:
-   - Input: 0.431584 USDC ($0.43) from user
+   - Input: 0.431584 USDC ($0.43) from user address 0x048ef1062cbb39B338Ac2685dA72adf104b4cEF5
    - Swap: USDC → 0.00011 WETH via Uniswap V4 Universal Router
-   - ZORA rewards distribution:
-     * 4.637023 ZORA received from trade
-     * User receives majority of ZORA as trading rewards
+   - ZORA rewards distribution (tracked by sender address):
+     * 4.637023 ZORA received from trade to Uniswap V4 Pool Manager
+     * Pool Manager identifies user's vault position using sender's address
+     * User (0x048ef106...) receives majority of ZORA as trading rewards
      * Small portion (0.075261 ZORA) to protocol treasury
      * Minimal validator fee (0.037630 ZORA split)
-   - Bonus: 2,562.421 Cabbage tokens minted to user as extra rewards
+   - Bonus: 2,562.421 Cabbage tokens minted to user's vault position
 4. Why these tokens:
    - WETH: Base asset for vault operations
-   - ZORA: User rewards for participating in protocol
-   - Cabbage: Additional user incentive token
+   - ZORA: User rewards tracked by sender's address and vault position
+   - Cabbage: Additional user incentive token tied to vault position
 5. Security constraints maintained:
    - Slippage < 0.5%
    - Transaction bundling for gas efficiency
-   - Fair reward distribution favoring users
+   - Fair reward distribution using sender's address for tracking
+
 
    - 
 ## Technical Implementation Overview
