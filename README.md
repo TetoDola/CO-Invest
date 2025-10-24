@@ -7,18 +7,21 @@ WHY TX IS LIKE THAT: This transaction demonstrates our platform's key features:
 3. Token flow breakdown:
    - Input: 0.431584 USDC ($0.43) from user
    - Swap: USDC → 0.00011 WETH via Uniswap V4 Universal Router
-   - ZORA token distribution (protocol incentives):
-     * 0.075261 ZORA to protocol treasury
-     * 0.037630 ZORA split between protocol validators
-     * 2,562.421 Cabbage tokens minted as additional rewards
+   - ZORA rewards distribution:
+     * 4.637023 ZORA received from trade
+     * User receives majority of ZORA as trading rewards
+     * Small portion (0.075261 ZORA) to protocol treasury
+     * Minimal validator fee (0.037630 ZORA split)
+   - Bonus: 2,562.421 Cabbage tokens minted to user as extra rewards
 4. Why these tokens:
    - WETH: Base asset for vault operations
-   - ZORA: Protocol incentive token on Base network
-   - Cabbage: Additional reward token for protocol participants
+   - ZORA: User rewards for participating in protocol
+   - Cabbage: Additional user incentive token
 5. Security constraints maintained:
    - Slippage < 0.5%
    - Transaction bundling for gas efficiency
-   - Multi-token reward distribution for protocol sustainability
+   - Fair reward distribution favoring users
+
    - 
 ## Technical Implementation Overview
 
