@@ -1,0 +1,37 @@
+{
+  "name": "co-invest-vaults-miniapp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:test": "tsx scripts/test-db-connection.ts",
+    "db:create": "tsx scripts/create-postgres-tables.ts",
+    "db:migrate": "tsx scripts/migrate-json-to-postgres.ts"
+  },
+  "dependencies": {
+    "@coinbase/onchainkit": "^1.1.1",
+    "@farcaster/miniapp-sdk": "^0.2.1",
+    "@farcaster/miniapp-wagmi-connector": "^1.1.0",
+    "@farcaster/quick-auth": "^0.0.8",
+    "@tanstack/react-query": "^5.90.5",
+    "@wagmi/core": "^2.22.1",
+    "@worldcoin/minikit-js": "^1.9.8",
+    "chart.js": "^4.5.1",
+    "next": "15.1.6",
+    "react": "19.0.0",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "19.0.0",
+    "redis": "^4.7.0",
+    "viem": "^2.38.3",
+    "wagmi": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.0.0"
+  }
+}

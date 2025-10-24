@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO-INVEST</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="header-title">CO-INVEST</h1>
+            <div class="wallet-chip">
+                <span class="wallet-label">USDC:</span>
+                <span class="wallet-balance">240.00</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Discover Page -->
+        <div id="discover-page" class="page active">
+            <div class="page-header">
+                <div class="sort-chips">
+                    <button class="chip active" data-sort="7d">7D Return</button>
+                    <button class="chip" data-sort="30d">30D</button>
+                    <button class="chip" data-sort="tvl">TVL</button>
+                    <button class="chip" data-sort="new">New</button>
+                </div>
+            </div>
+            
+            <div id="vault-list" class="vault-list">
+                <!-- Vault cards will be inserted here -->
+            </div>
+
+            <div id="discover-empty" class="empty-state" style="display: none;">
+                <p>No vaults yet. Save to get notified when a manager launches one.</p>
+                <button class="btn-secondary">Save App</button>
+            </div>
+        </div>
+
+        <!-- Vault Detail Page -->
+        <div id="vault-detail-page" class="page">
+            <div class="detail-header">
+                <button class="back-btn" onclick="app.navigateTo('discover')">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <div class="detail-title-section">
+                    <h2 id="vault-detail-name" class="vault-detail-name"></h2>
+                    <div id="vault-detail-manager" class="vault-manager-avatar"></div>
+                </div>
+            </div>
+
+            <div class="vault-detail-content">
+                <button onclick="app.downloadChartImage()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M4 16L4 17C4 18.6569 5.34315 20 7 20L17 20C18.6569 20 20 18.6569 20 17L20 16M16 12L12 16M12 16L8 12M12 16L12 4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Share Performance Chart
+                </button>
+                <div class="hero-section">
+                    <div class="performance-pill" id="vault-perf-pill"></div>
+                    <div class="nav-chart">
+                        <canvas id="nav-sparkline" width="300" height="80"></canvas>
+                    </div>
+                    <div class="chart-period-toggle">
+                        <button class="period-btn" data-period="24h">24h</button>
+                        <button class="period-btn active" data-period="7d">7D</button>
+                        <button class="period-btn" data-period="30d">30D</button>
+                        <button class="period-btn" data-period="all">All</button>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <div class="metric">
+                        <span class="metric-label">TVL</span>
+                        <span class="metric-value" id="vault-tvl"></span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">7D</span>
+                        <span class="metric-value" id="vault-7d"></span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">30D</span>
+                        <span class="metric-value" id="vault-30d"></span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Exit Fee</span>
+                        <span class="metric-value" id="vault-exit-fee"></span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Lockup</span>
+                        <span class="metric-value" id="vault-lockup"></span>
+                    </div>
+                </div>
+
+                <div id="allocation-chips" class="allocation-chips"></div>
+
+                <div class="manager-strip">
+                    <span>by <span id="manager-name"></span></span>
+                </div>
+
+                <!-- Your Position Section (if holding shares) -->
+                <div id="position-section" class="position-section" style="display: none;">
+                    <h3>Your Position</h3>
+                    <div class="position-details">
+                        <div class="position-stat">
+                            <span class="label">Position Value</span>
+                            <span class="value" id="position-value"></span>
+                        </div>
+                        <div class="position-stat">
+                            <span class="label">Total Shares</span>
+                            <span class="value" id="position-shares"></span>
+                        </div>
+                        <div class="position-stat">
+                            <span class="label">PnL</span>
+                            <span class="value" id="position-pnl"></span>
+                        </div>
+                    </div>
+                    
+                    <div id="tranches-list" class="tranches-list"></div>
+                </div>
+
+                <!-- Disclosures -->
+                <div class="disclosures">
+                    <div class="disclosure-item">
+                        <h4>Strategy Disclosed (EAS)</h4>
+                        <p>Whitelisted tokens/pools · Slippage ≤0.5% · Trade ≤20% TVL</p>
+                    </div>
+                    <div class="disclosure-item">
+                        <h4>Fee Disclosed (EAS)</h4>
+                        <p>Exit 1.00% (0.50% platform / 0.50% manager) · 48h timelock on changes</p>
+                    </div>
+                </div>
+
+                <!-- Safety Banner -->
+                <div class="safety-banner">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 2L3 5V9C3 13.5 6 17 10 18C14 17 17 13.5 17 9V5L10 2Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                    <p>Non-custodial. Manager can't withdraw your funds. Trades fenced on-chain (≤0.5% slippage, ≤20% TVL). Withdraw anytime after lockup.</p>
+                </div>
+            </div>
+
+            <!-- Action Area (Sticky Bottom) -->
+            <div class="action-area">
+                <div class="wallet-balance-line">
+                    <span>USDC available:</span>
+                    <span class="balance">240.00</span>
+                </div>
+
+                <!-- Buy/Sell Tabs (if holding shares) -->
+                <div id="action-tabs" class="action-tabs" style="display: none;">
+                    <button class="tab-btn active" data-tab="buy">Buy</button>
+                    <button class="tab-btn" data-tab="sell">Sell</button>
+                </div>
+
+                <!-- Buy Panel -->
+                <div id="buy-panel" class="action-panel">
+                    <div class="input-group">
+                        <input type="text" inputmode="decimal" id="buy-amount" class="amount-input" placeholder="0.00" step="0.01" min="0">
+                        <span class="input-suffix">USDC</span>
+                    </div>
+                    <div class="quick-chips">
+                        <button class="quick-chip" data-amount="10">+10</button>
+                        <button class="quick-chip" data-amount="20">+20</button>
+                        <button class="quick-chip" data-amount="50">+50</button>
+                        <button class="quick-chip" data-amount="max">MAX</button>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <div class="preview-item">
+                            <span>Shares you'll receive</span>
+                            <span id="shares-preview">0.0000</span>
+                        </div>
+                        <div class="preview-item">
+                            <span>Unlock date/time</span>
+                            <span id="unlock-preview"></span>
+                        </div>
+                        <div class="preview-item">
+                            <span>Deposit fee</span>
+                            <span>0%</span>
+                        </div>
+                    </div>
+
+                    <button id="buy-btn" class="btn-primary" disabled>Buy Shares</button>
+                    
+                    <div class="action-notes">
+                        <p>New shares lock for 7 days.</p>
+                        <p class="gasless-note">Gas-free · Powered by Base Paymaster</p>
+                    </div>
+                </div>
+
+                <!-- Sell Panel -->
+                <div id="sell-panel" class="action-panel" style="display: none;">
+                    <div class="unlocked-info">
+                        <span>Unlocked shares:</span>
+                        <span id="unlocked-shares">0.0000 (~0.00 USDC)</span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" inputmode="decimal" id="sell-amount" class="amount-input" placeholder="0.0000" step="0.0001" min="0">
+                        <span class="input-suffix">shares</span>
+                    </div>
+                    <input type="range" id="sell-slider" class="sell-slider" min="0" max="100" value="0">
+                    
+                    <div class="preview-section">
+                        <div class="preview-item">
+                            <span>Exit fee 1.00%</span>
+                            <span class="fee-split">0.50% platform / 0.50% manager</span>
+                        </div>
+                        <div class="preview-item bold">
+                            <span>Net you receive</span>
+                            <span id="net-receive">0.00 USDC</span>
+                        </div>
+                    </div>
+
+                    <p class="sell-note">Vault may sell a small portion of assets to pay USDC (slippage ≤0.5%).</p>
+
+                    <button id="sell-btn" class="btn-primary" disabled>Sell Shares</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Vaults Page -->
+        <div id="my-vaults-page" class="page">
+            <h2 class="page-title">My Vaults</h2>
+            <div id="my-vaults-list" class="my-vaults-list">
+                <!-- User's vault holdings will be inserted here -->
+            </div>
+            <div id="my-vaults-empty" class="empty-state">
+                <p>You haven't bought any vault shares yet.</p>
+                <button class="btn-primary" onclick="app.navigateTo('discover')">Discover Vaults</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" data-page="discover">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Discover</span>
+        </button>
+        <button class="nav-item" data-page="my-vaults">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M3 7C3 5.89543 3.89543 5 5 5H19C20.1046 5 21 5.89543 21 7V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17V7Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M3 10H21" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span>My Vaults</span>
+        </button>
+    </nav>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
