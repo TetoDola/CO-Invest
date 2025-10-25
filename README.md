@@ -1,51 +1,46 @@
-# CO-INVEST: DeFi Vault Platform (ONLY ON BASE APP OR FARCASTER APP)
+## CO-INVEST: DeFi Vault Platform
 
-(ONLY ON BASE APP OR FARCASTER APP)
+**(ONLY ON BASE APP OR FARCASTER APP)**
 
-💡 In simple terms: Co-Invest lets anyone invest alongside proven managers through secure on-chain vaults — gas-free, transparent, and verifiable. You deposit USDC, the manager trades within strict limits, and you automatically earn proportional rewards.
+**💡 In simple terms:** Co-Invest lets anyone invest alongside proven managers through secure on-chain vaults — gas-free, transparent, and verifiable. You deposit USDC, the manager trades within strict limits, and you automatically earn proportional rewards.
 
-🔍 Transaction Proof on Mainnet:
+**🔍 Transaction Proof on Mainnet:**
+
 TX PROOF ON MAINNET: [0x18aaa4e77c70fae53b29e55b8726559539dc6d7cf5b2c787a62969aff4ef8060](https://basescan.org/tx/0x18aaa4e77c70fae53b29e55b8726559539dc6d7cf5b2c787a62969aff4ef8060)
 
-Why This Transaction Matters
+---
+
+### Why This Transaction Matters
 
 This transaction demonstrates our platform’s key features:
 
-Account Abstraction (AA) via EntryPoint 0.6.0 (0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789)
+* **Account Abstraction (AA)** via EntryPoint 0.6.0 (`0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789`)
+* **Gasless execution** through sponsored transactions
 
-Gasless execution through sponsored transactions
+**Token Flow Breakdown:**
 
-Token Flow Breakdown:
+* **Input:** 0.431584 USDC ($0.43) from user `0x048ef1062cbb39B338Ac2685dA72adf104b4cEF5`
+* **Swap:** USDC → 0.00011 WETH via Uniswap V4 Universal Router
+* **Rewards:** 4.637023 ZORA distributed from Uniswap V4 Pool Manager
 
-Input: 0.431584 USDC ($0.43) from user 0x048ef1062cbb39B338Ac2685dA72adf104b4cEF5
+  * Majority to the user as trading rewards
+  * 0.075261 ZORA → protocol treasury
+  * 0.037630 ZORA → validator split
+* **Bonus:** 2,562.421 *Cabbage tokens* minted to the user’s vault position
 
-Swap: USDC → 0.00011 WETH via Uniswap V4 Universal Router
+**Why these tokens exist:**
 
-Rewards: 4.637023 ZORA distributed from Uniswap V4 Pool Manager
+* **WETH:** Base asset for vault operations
+* **ZORA:** User trading rewards tracked by sender address
+* **Cabbage:** Extra incentive token tied to vault performance
 
-Majority to the user as trading rewards
+**Security Constraints:**
 
-0.075261 ZORA → protocol treasury
+* Slippage < 0.5%
+* Bundled transactions for gas efficiency
+* Reward distribution verified via sender address
 
-0.037630 ZORA → validator split
-
-Bonus: 2,562.421 Cabbage tokens minted to the user’s vault position
-
-Why these tokens exist:
-
-WETH: Base asset for vault operations
-
-ZORA: User trading rewards tracked by sender address
-
-Cabbage: Extra incentive token tied to vault performance
-
-Security Constraints:
-
-Slippage < 0.5%
-
-Bundled transactions for gas efficiency
-
-Reward distribution verified via sender address
+---
 ## Technical Implementation Overview
 
 ### 🔄 Demo Version Architecture
